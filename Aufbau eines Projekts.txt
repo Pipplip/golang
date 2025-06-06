@@ -1,0 +1,92 @@
+/my-go-project
+├── cmd/                    # Hauptanwendung(en)
+│   └── app/                # Das Haupt-Programm
+│       └── main.go         # Einstiegspunkt der Anwendung
+├── internal/               # private, wiederverwendbare Komponenten
+│   ├── handler/            # HTTP-Handler und Controller
+│   │   └── person_handler.go
+│   ├── model/              # Datenmodelle
+│   │   └── person.go
+│   └── service/            # Geschäftslogik / Services
+│       └── person_service.go
+│   └── middleware/         # Middleware-Ordner
+│       └── auth.go         # Authentifizierungsmiddleware
+│       └── logger.go       # Logging-Middleware
+├── pkg/                    # Wiederverwendbare Bibliotheken (optional)
+│   └── util/               # Hilfsfunktionen
+│       └── logger.go
+├── api/                    # API-Spezifikation (z. B. Protobuf, OpenAPI)
+│   └── api_definition.yaml
+├── scripts/                # Nützliche Skripte (z.B. für Datenbankmigration)
+│   └── migrate_db.sh
+├── config/                 # Konfigurationsdateien
+│   └── config.yaml
+├── deploy/                 # Deployment-Skripte und Konfigurationen
+│   └── docker/
+│       └── Dockerfile
+├── test/                   # Tests
+│   ├── handler/            # Tests für Handler
+│   │   └── person_handler_test.go
+│   └── service/            # Tests für Services
+│       └── person_service_test.go
+├── go.mod                  # Go Modul Datei
+└── go.sum                  # Go Modul Abhängigkeiten
+
+
+Erklärung der Struktur:
+
+    cmd/:
+
+        Hier liegt der Einstiegspunkt für deine Anwendung. In der Regel gibt es ein main.go-File, das die Anwendung startet. Wenn du mehrere Anwendungen (z.B. ein CLI-Tool und einen HTTP-Server) in einem Repository hast, können sie hier als separate Verzeichnisse untergebracht werden.
+
+    internal/:
+
+        Der Ordner internal enthält den Code, der nur innerhalb des Projekts verwendet werden darf und nicht von anderen Go-Projekten importiert werden kann. Dies stellt sicher, dass dieser Code privat bleibt und nicht von außen zugänglich ist.
+
+        Unterverzeichnisse wie handler (für HTTP-Handler), model (für Datenmodelle), und service (für die Geschäftslogik) strukturieren den Code in logische Teile.
+
+    pkg/:
+
+        Dieser Ordner enthält Code, der potenziell von anderen Projekten wiederverwendet werden kann. Beispielsweise könnten hier Hilfsfunktionen oder generische Bibliotheken abgelegt werden. Nicht jedes Projekt braucht diesen Ordner, aber er ist nützlich, wenn du ein Go-Paket für andere Projekte bereitstellen möchtest.
+
+    api/:
+
+        Falls du eine API-Spezifikation wie OpenAPI oder Protobuf verwendest, könnte dieser Ordner die entsprechenden Dateien beinhalten. Diese Dateien dokumentieren deine API und definieren, wie die Anfragen und Antworten strukturiert sind.
+
+    scripts/:
+
+        Hier kannst du nützliche Skripte ablegen, wie zum Beispiel Datenbank-Migrationsskripte oder Automatisierungs-Skripte, die für den Build-Prozess oder Deployment hilfreich sind.
+
+    config/:
+
+        Der config-Ordner enthält Konfigurationsdateien, wie z.B. Umgebungsvariablen oder eine YAML-/JSON-Konfigurationsdatei, die von der Anwendung zur Laufzeit gelesen wird.
+
+    deploy/:
+
+        Hier befinden sich Skripte und Konfigurationen, die für das Deployment des Projekts erforderlich sind, zum Beispiel Dockerfiles oder Kubernetes-Konfigurationsdateien.
+
+    test/:
+
+        Der Ordner test enthält Unit-Tests, Integrationstests oder andere Testarten. Es ist sinnvoll, Testfälle für jeden Teil des Codes zu schreiben, z.B. für die HTTP-Handler und Services.
+
+    go.mod und go.sum:
+
+        Diese Dateien sind Teil des Go-Modul-Systems. Sie enthalten die Abhängigkeiten und Versionen, die dein Projekt verwendet.
+
+Typische Code-Aufteilung:
+
+    Modelle (z.B. model/person.go): Hier werden Datenstrukturen wie Person definiert, die sowohl für die API als auch für interne Verarbeitungen genutzt werden.
+
+    Handler (z.B. handler/person_handler.go): Diese Dateien enthalten die HTTP-Endpunkte und die Logik zur Handhabung von API-Anfragen.
+
+    Services (z.B. service/person_service.go): Hier befindet sich die Geschäftslogik, z.B. das Abrufen von Daten aus einer Datenbank oder das Verarbeiten von Benutzereingaben.
+
+Vorteile dieser Struktur:
+
+    Modularität: Der Code ist klar in verschiedene Komponenten unterteilt (Modelle, Handler, Services), was die Wartbarkeit und Erweiterbarkeit verbessert.
+
+    Testbarkeit: Tests sind in einem separaten Verzeichnis organisiert, und die Struktur fördert das Testen einzelner Komponenten.
+
+    Erweiterbarkeit: Die Struktur lässt sich leicht erweitern, z.B. mit weiteren Endpunkten oder Features.
+
+    Saubere Trennung von Verantwortlichkeiten: Die Trennung von HTTP-Handlern, Geschäftslogik und Modellen folgt dem Prinzip der sauberen Architektur und sorgt dafür, dass der Code leichter zu verstehen und zu warten ist.
