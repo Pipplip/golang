@@ -116,13 +116,17 @@ func RunOverview() {
 	// Slices
 	// Ein Slice ist eine flexible Liste, kein Datenfeld, sondern zeigt auf ein Array im Hintergrund.
 	// Ein Slice ist nur eine Sicht auf ein Array, kein eigenes Array.
-	// Es besteht aus einem Pointer,Laenge (len) und Kapazität (cap)
+	// Wenn man einen Wert in einem Slice ändert, ändert sich der Wert auch im unterliegenden Array
+	// Es besteht aus einem Pointer, Laenge (len)=Anzahl Elemente des slices und Kapazität (cap)= Anzahl Elemente des darunterliegenden Arrays
 	fmt.Println(strings.Repeat("-", NUMBER_DASHES), "Slices")
 
 	// Erstellen:
 	// (1) Using the []datatype{values} format
 	var slice1 []int    // hier muss man nicht die Größe angeben im Gegensatz zum Array
 	fmt.Println(slice1) // [] (nil)
+	if slice1 == nil {
+		fmt.Println("Nil")
+	}
 
 	slice1 = []int{1, 2, 3}
 	fmt.Println(slice1[1]) // 2
@@ -209,6 +213,7 @@ func RunOverview() {
 
 	// ######################################
 	// Structs
+	// ist eine Sammlung von Feldern.
 	// is used to create a collection of members of different data types, into a single variable.
 	// While arrays are used to store multiple values of the same data type into a single variable,
 	// structs are used to store multiple values of different data types into a single variable.
@@ -264,8 +269,19 @@ func RunOverview() {
 	}
 	fmt.Println(index) // 0
 
+	// ohne Option
+	var oneValue int = 1
+	switch {
+	case oneValue == 1:
+		fmt.Println("Es ist eins")
+	case oneValue == 2:
+		fmt.Println("Es ist zwei")
+	default:
+		fmt.Println("Keins von beiden")
+	}
+
 	// ######################################
-	// Schleifen
+	// Schleifen - es gibt nur den Schleifen Konstrukt "for"
 	// for {...} Endlosschleife
 	// for condition {...} Schleife mit Abbruchbedingung
 	// for initializer; test; post clause [...} counter based Schleife
@@ -280,7 +296,7 @@ func RunOverview() {
 	}*/
 
 	fmt.Println(strings.Repeat("-", NUMBER_DASHES), "Loops")
-	// Mit Bedingung
+	// Mit Bedingung - while loop
 	for i < 3 {
 		fmt.Print(i) // 1 2
 		i += 1
@@ -335,6 +351,25 @@ func RunOverview() {
 	fmt.Println(firstName, lastName) // FirstName -Other new LastName-
 
 	fmt.Println(factorialRecursion(4)) // 24
+
+	// ######################################
+	// shifting
+	shiftLeft := 1 << 2 // 1 Bit wird um zwei Stellen nach links verschoben, also 0001 → 0100
+	// 1 in binär 0001
+	fmt.Printf("%b \n", shiftLeft) // 1 0 0
+	fmt.Printf("%d \n", shiftLeft) // 4 da 2^2=4
+
+	shiftRight := 8 >> 3            // 8 in binär = 1000 wird um drei Stellen nach rechts verschoben -> 0001
+	fmt.Printf("%b \n", shiftRight) // 0 0 0 1
+	fmt.Printf("%d \n", shiftRight) // 1 da 2^0=1
+
+	shiftNine := 9 << 2            // 9 binär ist = 1 0 0 1, zwei Stellen nach links also 1 0 0 1 0 0
+	fmt.Printf("%b \n", shiftNine) // 100100
+	fmt.Printf("%d \n", shiftNine) // 36
+
+	shiftTest := 0001 << 1
+	fmt.Printf("%b \n", shiftTest) // 10
+	fmt.Printf("%d \n", shiftTest) // 2, da 2^1 = 2
 }
 
 func greet1(name string) {

@@ -11,7 +11,8 @@ IDE und Go vorbereiten:
 Übersicht über Standardpackages:
 pkg.go.dev/std
 
-Gutes GitHub: https://github.com/avelino/awesome-go
+Gutes GitHub: https://github.com/avelino/awesome-go   
+Offizielle Tour of go: https://go.dev/tour/list
 
 Workspace anlegen:
 1) Neuen Workspace im Explorer oder Konsole erstellen (mkdir BasisProject)
