@@ -45,6 +45,32 @@ func RunOverview() {
 	fmt.Printf("NameType: %T, NameValue: %v\n", name, name) // NameType: string, NameValue: Test Name
 
 	// ######################################
+	// Formatted Strings mit Printf
+	testStringValue := "TestValue"
+	testIntValue := 1
+	fmt.Printf("%s %d \n", testStringValue, testIntValue)
+
+	// %s ist ein Platzhalter für einen String.
+	// %d ist ein Platzhalter für eine Ganzzahl.
+	// %v: Standardformat für den Wert.
+	// %#v: Go-Syntax-Darstellung des Wertes.
+	// %T: Typ des Wertes.
+	// %%: Ein Literal-Prozentzeichen.
+
+	// Für Ganzzahlen:
+	// %b: Binäre Darstellung.
+	// %c: Zeichen, das dem Unicode-Codepunkt entspricht.
+	// %d: Dezimale Darstellung.
+	// %o: Oktale Darstellung.
+	// %x: Hexadezimale Darstellung (mit Kleinbuchstaben).
+	// %X: Hexadezimale Darstellung (mit Großbuchstaben).
+
+	// Für Gleitkomma, komplexe Zahlen
+	// %e: Wissenschaftliche Notation (z. B. 1.23e+03).
+	// %f: Dezimalpunkt, aber kein Exponent (z. B. 123.456).
+	// %g: Verwendet %e oder %f basierend auf der Genauigkeit des Wertes.
+
+	// ######################################
 	// Pointer
 	// & (Adresse-Operator): Wird verwendet, um die Speicheradresse einer Variablen zu erhalten. Beispiel: ptr := &a setzt den Pointer ptr auf die Adresse von a
 	// * (Dereferenzierungs-Operator): Wird verwendet, um auf den Wert zuzugreifen, der an der Adresse gespeichert ist, auf die der Pointer zeigt.
@@ -86,17 +112,14 @@ func RunOverview() {
 	fmt.Println(a2) // {"q, "bar", "baz"}
 	fmt.Println(a3) // {"foo, "bar", "baz"}
 
+	// ######################################
 	// Slices
-	// Like arrays, slices are also used to store multiple values of the same type in a single variable.
-	// However, unlike arrays, the length of a slice can grow and shrink as you see fit.
-	// Slices are reference types, so when you assign one slice to another, they both point to the same underlying array.
-	// In Go, there are several ways to create a slice:
-	// (1) Using the []datatype{values} format
-	// (2) Create a slice from an array
-	// (3) Using the make() function
-
+	// Ein Slice ist eine flexible Liste, kein Datenfeld, sondern zeigt auf ein Array im Hintergrund.
+	// Ein Slice ist nur eine Sicht auf ein Array, kein eigenes Array.
+	// Es besteht aus einem Pointer,Laenge (len) und Kapazität (cap)
 	fmt.Println(strings.Repeat("-", NUMBER_DASHES), "Slices")
 
+	// Erstellen:
 	// (1) Using the []datatype{values} format
 	var slice1 []int    // hier muss man nicht die Größe angeben im Gegensatz zum Array
 	fmt.Println(slice1) // [] (nil)
@@ -117,12 +140,17 @@ func RunOverview() {
 
 	// Arbeiten mit Slices: append, delete
 	// mit append noch mehr Elemente hinzufügen
-	slice1 = append(slice1, 5, 10, 15)
-	fmt.Println(slice1) // [1 2 3 5 10 15]
+	slice1 = append(slice1, 5, 10, 15) // mit append ensteht ein neuer slice, der zugewiesn werden muss
+	fmt.Println(slice1)                // [1 2 3 5 10 15]
 
 	// mit Delete Elemente entfernen
-	slice1 = slices.Delete(slice1, 1, 3)
-	fmt.Println(slice1) // [1 5 10 15]
+	slice1 = slices.Delete(slice1, 1, 3) // es entsteht wieder ein neuer slice
+	fmt.Println(slice1)                  // [1 5 10 15]
+
+	// einfache Kopie - bekommt eigenen Speicherbereich
+	slice1Copy := make([]int, len(slice1))
+	copy(slice1Copy, slice1)
+	fmt.Println(slice1Copy)
 
 	// Create copy with only needed numbers
 	numbers := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15}
@@ -133,6 +161,20 @@ func RunOverview() {
 	fmt.Printf("length = %d\n", len(numbersCopy))
 	fmt.Printf("capacity = %d\n", cap(numbersCopy))
 
+	// Verständnis
+	nums2 := []int{1, 2, 3}
+	// erstellen eines neuen Slices auf denselben Speicher
+	sub := nums2[0:2] // 0 inklusive, 2 exklusive
+	// es entsteht ein Abbild (Slice) -> Wert [1, 2]
+	// Keine neues Array, sondern zeigt immer noch auf den Ursprung: nums2
+
+	// Im Slice Werte ändern...
+	sub[0] = 100 // -> [100, 2]
+
+	// ..., ändert auch das ursprüngliche Array
+	fmt.Println(nums2) // [100,2,3]
+
+	// ######################################
 	// Map - key/value
 	// die maps sind unordered
 	fmt.Println(strings.Repeat("-", NUMBER_DASHES), "Maps")
@@ -165,6 +207,7 @@ func RunOverview() {
 	_, ok_m3 := m3["foo"]
 	fmt.Println(ok_m3) // true
 
+	// ######################################
 	// Structs
 	// is used to create a collection of members of different data types, into a single variable.
 	// While arrays are used to store multiple values of the same data type into a single variable,
@@ -291,7 +334,7 @@ func RunOverview() {
 	pointerTest(firstName, &lastName)
 	fmt.Println(firstName, lastName) // FirstName -Other new LastName-
 
-	fmt.Println(factorial_recursion(4)) // 24
+	fmt.Println(factorialRecursion(4)) // 24
 }
 
 func greet1(name string) {
@@ -344,10 +387,10 @@ func pointerTest(name string, otherLastName *string) {
 	// Allgemein: Benutze Pointer um Speicher zu teilen, ansonsten Werte
 }
 
-func factorial_recursion(x float64) (y float64) {
+func factorialRecursion(x float64) (y float64) {
 	if x > 0 {
 		//fmt.Println("x", x)
-		y = x * factorial_recursion(x-1)
+		y = x * factorialRecursion(x-1)
 		fmt.Println("y", y)
 	} else {
 		y = 1
