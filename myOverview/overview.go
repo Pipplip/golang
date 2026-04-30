@@ -88,6 +88,36 @@ func RunOverview() {
 	a = "A2"
 	fmt.Println(a, b, *b) // A2 0xc000022100 A2
 
+	// allgemeiner:
+	// & Speicheradresse
+	// * Greife auf Wert zu oder zeige auf Adresse
+	//
+	// &a = … nein - ist eine Speicheradresse
+	// *a = … Ja - ändere den Wert der auf a zeigt, geht nur wenn a ein pointer ist (also var a *int)
+	// a = &b Ja - setze Pointer, also a auf Adresse von b (a muss pointer sein)
+	// a = *b Ja - setze den Wert von b auf a (nur wenn b ein pointer ist)
+	//
+	// x:=5
+	// ___________
+	// | Adresse |
+	// |  0x100  |
+	// -----------
+	// | Wert    |
+	// |   5     |
+	// -----------
+	//
+	// p:=&x // ein pointer hat immer eine Adresse als Wert, keinen richtigen Wert
+	// ___________
+	// | Adresse |
+	// |  0x200  |
+	// -----------
+	// | Wert    |
+	// | 0x100   |  → der Wert ist die Adresse von x -> zeigt auf x
+	// -----------
+	//
+	// 👉 Normale Variable = Wert liegt drin
+	// 👉 Pointer = Adresse liegt drin
+
 	// ######################################
 	// Aggregate DataTypes: Arrays, Slices, Maps, Struct
 
