@@ -28,7 +28,7 @@ Neues Package anlegen:
 ## Datenstrukturen
 1) Slices = Listen
 2) Maps = Key-Value
-3) Structs = eigene Datebtypen
+3) Structs = eigene Datentypen
 4) Arrays = feste Listen
 5) Pointer
 6) Interfaces
