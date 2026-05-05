@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	"sync"
 	"time"
 )
 
 // Main Erklärung von goroutines und Mutex
-func main() {
+func main3() {
 	fmt.Println("goroutines:")
 	// coroutines werden mit dem Schlüsselwort 'go' gestartet und laufen parallel zum Hauptprogramm.
 	// Sie können auch mit anderen Goroutines parallel laufen.
@@ -120,5 +121,45 @@ func main2() {
 	// Ergebnisse ausgeben
 	for r := range results {
 		fmt.Println(r)
+	}
+}
+
+func main() {
+	var wg sync.WaitGroup
+	wg.Add(1)
+	wg.Add(1)
+	repeats := 3
+
+	// channel
+	channel := make(chan string) // immer ein input
+
+	// Writer
+	go myWriter("eins", &wg, channel, repeats)
+	go myWriter("zwei", &wg, channel, repeats)
+
+	// Empfänger-Goroutine
+	go myReceiver(&wg, channel, repeats)
+
+	wg.Wait()
+}
+
+func myWriter(name string, wg *sync.WaitGroup, channel chan string, repeat int) {
+	defer wg.Done()
+	fmt.Printf("%s: Start\n", name)
+	for i := 0; i < repeat; i++ {
+		//fmt.Printf("%s: %d\n", name, i)
+		value := name + " " + strconv.Itoa(i)
+		fmt.Printf("%s: sending:  %s\n", name, value)
+		channel <- value
+		fmt.Printf("%s: waiting...\n", name)
+		time.Sleep(2 * time.Second)
+	}
+}
+
+func myReceiver(wg *sync.WaitGroup, channel chan string, repeat int) {
+	defer wg.Done()
+	for i := 0; i < repeat*2; i++ { // 2 Goroutines * 5 Werte
+		value := <-channel
+		fmt.Printf("Empfangen: %s\n", value)
 	}
 }
