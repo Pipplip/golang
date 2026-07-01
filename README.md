@@ -15,15 +15,15 @@ Gutes GitHub: https://github.com/avelino/awesome-go
 Offizielle Tour of go: https://go.dev/tour/list
 
 Workspace anlegen:
-1) Neuen Workspace im Explorer oder Konsole erstellen (mkdir BasisProject)
-2) Ins Verzeichnis gehen (cd BasisProject) und Haupt-Modul initialisieren (go mod init BasisProject)
-   -> Dadurch entsteht eine go.mod Datei
-3) main.go Datei erstellen (Im Explorer oder VSC (Über File - new File) mit Name main.go) - Import package main, wenn dort die main Funktion sein soll
-4) Programm ausführen: In Konsole go run ./main.go
+1) Neuen Workspace im Explorer oder Konsole erstellen (`mkdir BasisProject`)
+2) Ins Verzeichnis gehen (`cd BasisProject`) und Haupt-Modul initialisieren (`go mod init BasisProject`)
+   -> Dadurch entsteht eine `go.mod` Datei
+3) `main.go` Datei erstellen (Im Explorer oder VSC (Über File - new File) mit Name `main.go`) - Import package main, wenn dort die main Funktion sein soll
+4) Programm ausführen: In Konsole `go run ./main.go`
 
 Neues Package anlegen:
-1) Erstelle im Workspace einen neuen Ordner (mkdir myOverview)
-2) Erstelle darin eine neue Datei overview.go
+1) Erstelle im Workspace einen neuen Ordner (`mkdir myOverview`)
+2) Erstelle darin eine neue Datei `overview.go`
 
 ## Datenstrukturen
 1) Slices = Listen

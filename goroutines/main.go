@@ -41,6 +41,7 @@ func main3() {
 	wg.Add(1) // 1 heißt soviel wie: Ich starte eine Goroutine, auf die ich warten will.
 
 	go func() {
+		// defer bedeutet: "Führe diesen Befehl erst aus, wenn die aktuelle Funktion beendet wird". Wird als letztes ausgeführt.
 		defer wg.Done() // signalisiert, dass diese goroutine fertig ist
 		fmt.Println("Running...")
 	}()
