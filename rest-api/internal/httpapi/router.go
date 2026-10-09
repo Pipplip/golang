@@ -26,7 +26,7 @@ func NewRouter(service *book.Service) *http.ServeMux {
 	mux.HandleFunc("POST /books", h.createBook)
 	mux.HandleFunc("PUT /books/{id}", h.updateBook)
 	mux.HandleFunc("DELETE /books/{id}", h.deleteBook)
-	mux.HandleFunc("/", HomeHandler)
+	mux.HandleFunc("GET /{$}", HomeHandler)
 
 	return mux
 }
