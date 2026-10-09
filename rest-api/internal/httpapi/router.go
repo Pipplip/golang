@@ -26,6 +26,7 @@ func NewRouter(service *book.Service) *http.ServeMux {
 	mux.HandleFunc("POST /books", h.createBook)
 	mux.HandleFunc("PUT /books/{id}", h.updateBook)
 	mux.HandleFunc("DELETE /books/{id}", h.deleteBook)
+	mux.HandleFunc("/", HomeHandler)
 
 	return mux
 }
@@ -35,5 +36,9 @@ func Chain(logger *slog.Logger, next http.Handler) http.Handler {
 	// LoggingMiddleware misst die Dauer und protokolliert nach der Anfrage Methode, Pfad und Statuscode. Ein kleiner statusRecorder merkt sich dafür, welchen HTTP-Status die Handler geschrieben haben
 	// RecoveryMiddleware fängt unerwartete Panics ab, protokolliert den Fehler samt Stacktrace und sendet, wenn noch keine Antwort begonnen hat, eine HTTP-500-Antwort
 	// Bei einer Anfrage läuft zuerst das Logging, dann Recovery und zuletzt der Router
-	return LoggingMiddleware(logger)(RecoveryMiddleware(logger)(next))
+	return LoggingMiddleware(logger)(
+		RecoveryMiddleware(logger)(
+			CORSMiddleware(next),
+		),
+	)
 }
